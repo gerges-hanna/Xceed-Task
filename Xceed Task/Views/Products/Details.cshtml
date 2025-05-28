@@ -1,0 +1,65 @@
+﻿@model Xceed_Task.Models.Product
+@{
+    ViewData["Title"] = "Product Details";
+    var availableUntil = Model.StartDate.AddHours(Model.DurationInHours);
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0 bg-light">
+        <div class="card-body">
+            <h2 class="card-title text-center mb-4">Product Details</h2>
+
+            <!-- Product Info -->
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <div class="fw-bold">Name</div>
+                    <div>@Model.Name</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fw-bold">Price</div>
+                    <div>@Model.Price.ToString("C")</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fw-bold">Category</div>
+                    <div>@Model.Category?.Name</div>
+                </div>
+            </div>
+
+            <!-- Availability -->
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <div class="fw-bold">Start Date</div>
+                    <div>@Model.StartDate.ToString("g")</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fw-bold">Duration (Hours)</div>
+                    <div>@Model.DurationInHours</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fw-bold">Available Until</div>
+                    <div>@availableUntil.ToString("g")</div>
+                </div>
+            </div>
+
+            <!-- Audit Info -->
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <div class="fw-bold">Created On</div>
+                    <div>@Model.CreationDate.ToString("g")</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fw-bold">Created By</div>
+                    <div>@Model.CreatedByUser?.UserName</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer d-flex justify-content-between bg-white">
+            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-primary">Edit</a>
+            }
+            <a asp-action="PublicList" class="btn btn-sm btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>

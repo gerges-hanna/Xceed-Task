@@ -1,0 +1,43 @@
+﻿@model List<Xceed_Task.Models.Product>
+
+
+<style>
+    .product-card {
+        background-color: #f8f9fa; 
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out, background-color 0.3s ease;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+        .product-card:hover {
+            background-color: #e2e6ea; 
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            color: inherit;
+            text-decoration: none;
+        }
+
+    .card-body h5 {
+        text-align: center;
+    }
+</style>
+
+<div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <a asp-action="Details" asp-route-id="@item.Id" class="text-decoration-none product-card">
+                <div class="card h-100 shadow-sm border-0 bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text mb-1"><strong>Price:</strong> @item.Price.ToString("C")</p>
+                        <p class="card-text mb-1"><strong>Category:</strong> @item.Category?.Name</p>
+                        <p class="card-text"><strong>Available Until:</strong> @item.StartDate.AddHours(item.DurationInHours).ToString("g")</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+</div>

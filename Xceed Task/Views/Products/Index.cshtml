@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Xceed_Task.Models.Product>
+
+@{
+    ViewData["Title"] = "Product Catalog";
+}
+
+
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Products For Admins</h2>
+        <a asp-action="Create" class="btn btn-sm btn-primary">+ Create New</a>
+    </div>
+
+    <div class="form-group">
+        <label for="category" style="margin-bottom:5px;">Filter by Category:</label>
+        <select id="categoryFilter" class="form-control">
+            <option value="" selected="selected">All</option>
+            @foreach (var cat in ViewBag.Categories as SelectList)
+            {
+                <option value="@cat.Value">@cat.Text</option>
+            }
+
+        </select>
+    </div>
+    <br />
+
+    <div id="productTableForAdmin">
+        @await Html.PartialAsync("_ProductTableForAdmin", Model)
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#categoryFilter').change(function () {
+            const selectedCategoryId = $(this).val();
+
+            $.ajax({
+                url: '@Url.Action("Index", "Products")',
+                data: { categoryId: selectedCategoryId },
+                type: 'GET',
+                success: function (html) {
+                    $('#productTableForAdmin').html(html);
+                },
+                error: function () {
+                    alert('Error loading products.');
+                }
+            });
+        });
+    </script>
+}

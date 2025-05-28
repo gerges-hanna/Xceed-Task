@@ -1,0 +1,43 @@
+﻿@model List<Xceed_Task.Models.Product>
+@{
+    ViewData["Title"] = "Product Catalog";
+}
+
+<h2>Product Catalog</h2>
+
+<div class="form-group">
+    <label for="category" style="margin-bottom:5px;">Filter by Category:</label>
+    <select id="categoryFilter" class="form-control">
+        <option value="" selected="selected">All</option>
+        @foreach (var cat in ViewBag.Categories as SelectList)
+        {
+            <option value="@cat.Value">@cat.Text</option>
+        }
+
+    </select>
+</div>
+
+<div id="productTable">
+    @await Html.PartialAsync("_ProductTable", Model)
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#categoryFilter').change(function () {
+            const selectedCategoryId = $(this).val();
+
+            $.ajax({
+                url: '@Url.Action("PublicList", "Products")',
+                data: { categoryId: selectedCategoryId },
+                type: 'GET',
+                success: function (html) {
+                    $('#productTable').html(html);
+                },
+                error: function () {
+                    alert('Error loading products.');
+                }
+            });
+        });
+    </script>
+}
