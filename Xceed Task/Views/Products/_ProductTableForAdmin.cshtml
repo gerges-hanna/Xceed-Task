@@ -1,48 +1,6 @@
-﻿<style>
-    .product-card {
-        background-color: #f8f9fa;
-        cursor: pointer;
-        transition: transform 0.2s ease-in-out, background-color 0.3s ease-in-out;
-        text-decoration: none;
-        color: inherit;
-        display: block;
-        border-radius: 0.5rem;
-    }
+﻿
 
-        .product-card:hover {
-            transform: scale(1.02);
-            background-color: #e9ecef;
-        }
-
-    .card-body {
-        position: relative;
-        padding-bottom: 3rem;
-    }
-
-    .btn-delete {
-        position: absolute;
-        top: 0.5rem;
-        right: 0.5rem;
-        z-index: 2;
-        opacity: 0.9;
-        transition: opacity 0.2s ease;
-    }
-
-    .btn-edit {
-        position: absolute;
-        bottom: 0.75rem;
-        right: 0.75rem;
-        z-index: 2;
-        opacity: 0.9;
-        transition: opacity 0.2s ease;
-    }
-
-    .product-card:hover .btn-delete,
-    .product-card:hover .btn-edit {
-        opacity: 1;
-    }
-</style>
-
+<link rel="stylesheet" href="~/css/ProductTableForAdminStyle.css" asp-append-version="true" />
 
 
 <div class="row row-cols-1 row-cols-md-3 g-4">

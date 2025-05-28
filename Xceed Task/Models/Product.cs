@@ -8,6 +8,7 @@ namespace Xceed_Task.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
         [DisplayName("Creation Date")]
         public DateTime CreationDate { get; set; }
 
